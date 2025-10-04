@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Atlas - AI 기반 공공조달 플랫폼</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#8B5CF6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #EBF8FF, #E0E7FF);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Header -->
+    <header class="border-b bg-white/80 backdrop-blur-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="h-8 w-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                        <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-2xl font-bold gradient-text">Project Atlas</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">로그인</button>
+                    <button class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors">회원가입</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-800 mb-4">
+                🚀 혁신적인 AI 기반 공공조달 플랫폼
+            </div>
+            <h2 class="text-5xl font-bold mb-6 text-gray-900">
+                신뢰 비용을 제로화하는<br />
+                <span class="gradient-text">B2B 프로젝트 생태계</span>
+            </h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                AI가 발주자와 수주자를 매칭하고, 이중 평판 시스템으로 모든 혁신 아이디어가 
+                공평하게 가치를 실현할 수 있는 지식 기반 조달 인프라입니다.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button class="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors font-semibold">
+                    프로젝트 시작하기
+                </button>
+                <button class="px-8 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-semibold">
+                    더 알아보기
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h3 class="text-3xl font-bold mb-4">핵심 기능</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    데이터 기반의 투명성과 공정성으로 프로젝트 매칭의 신뢰도를 혁신합니다
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- AI 매칭 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">AI 기반 매칭</h4>
+                    <p class="text-gray-600">
+                        과거 프로젝트 데이터를 분석하여 최적의 발주자-수주자 매칭을 제공합니다
+                    </p>
+                </div>
+
+                <!-- 이중 평판 시스템 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">이중 평판 시스템</h4>
+                    <p class="text-gray-600">
+                        Atlas Score(수주자)와 P-E-Q 지수(발주자)로 양방향 신뢰도를 평가합니다
+                    </p>
+                </div>
+
+                <!-- 투명한 평가 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="h-12 w-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">투명한 평가 시스템</h4>
+                    <p class="text-gray-600">
+                        대금지급율, 납기일, 프로젝트 성공율을 종합한 객관적 평가를 제공합니다
+                    </p>
+                </div>
+
+                <!-- 프로젝트 관리 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="h-12 w-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">통합 프로젝트 관리</h4>
+                    <p class="text-gray-600">
+                        프로젝트 전체 라이프사이클을 한 곳에서 관리하고 추적합니다
+                    </p>
+                </div>
+
+                <!-- 성과 분석 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="h-12 w-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">데이터 기반 성과 분석</h4>
+                    <p class="text-gray-600">
+                        프로젝트 성과 데이터를 분석하여 지속적인 개선과 성장을 지원합니다
+                    </p>
+                </div>
+
+                <!-- 신뢰 보장 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="h-12 w-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">신뢰 보장 시스템</h4>
+                    <p class="text-gray-600">
+                        계약 불이행 및 중도 실패율을 업계 평균 대비 50% 이하로 낮춥니다
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h3 class="text-3xl font-bold mb-4">Project Atlas의 성과</h3>
+                <p class="text-blue-100 max-w-2xl mx-auto">
+                    데이터 기반의 투명한 시스템으로 달성한 혁신적인 결과들
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold mb-2">70%+</div>
+                    <div class="text-blue-100">업계 표준 신용 지표 사용률</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">50%↓</div>
+                    <div class="text-blue-100">프로젝트 실패율 감소</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">95%+</div>
+                    <div class="text-blue-100">매칭 정확도</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">24/7</div>
+                    <div class="text-blue-100">AI 모니터링 시스템</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-3xl font-bold mb-4">지금 시작하세요</h3>
+            <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+                혁신적인 아이디어가 공평하게 가치를 실현할 수 있는 새로운 B2B 생태계에 참여하세요
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button class="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors font-semibold">
+                    발주자로 시작하기
+                </button>
+                <button class="px-8 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-semibold">
+                    수주자로 시작하기
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="h-8 w-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                            <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-bold">Project Atlas</h4>
+                    </div>
+                    <p class="text-gray-400">
+                        신뢰 비용을 제로화하는 혁신적인 B2B 프로젝트 생태계
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">서비스</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>AI 매칭</li>
+                        <li>평판 시스템</li>
+                        <li>프로젝트 관리</li>
+                        <li>성과 분석</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">지원</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>도움말</li>
+                        <li>문의하기</li>
+                        <li>API 문서</li>
+                        <li>커뮤니티</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">회사</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>회사 소개</li>
+                        <li>채용</li>
+                        <li>뉴스</li>
+                        <li>개인정보처리방침</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Project Atlas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 간단한 인터랙션 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            // 버튼 클릭 이벤트
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent.includes('로그인') || this.textContent.includes('회원가입')) {
+                        alert('Project Atlas에 오신 것을 환영합니다! 🚀\n\n현재 데모 버전입니다. 실제 서비스는 곧 출시될 예정입니다.');
+                    } else if (this.textContent.includes('시작하기')) {
+                        alert('프로젝트를 시작하시겠습니까?\n\nAI 매칭 시스템이 최적의 파트너를 찾아드립니다!');
+                    }
+                });
+            });
+
+            // 스크롤 애니메이션
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // 카드들에 애니메이션 적용
+            const cards = document.querySelectorAll('.bg-white.p-6');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 사용자 모델 (발주자/수주자 공통)
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  userType  UserType // CLIENT(발주자) 또는 CONTRACTOR(수주자)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 발주자 관련 필드
+  clientProfile ClientProfile?
+  
+  // 수주자 관련 필드
+  contractorProfile ContractorProfile?
+
+  // 프로젝트 관계
+  clientProjects     Project[] @relation("ClientProjects")
+  contractorProjects Project[] @relation("ContractorProjects")
+
+  // 평가 관계
+  givenEvaluations   Evaluation[] @relation("EvaluatorEvaluations")
+  receivedEvaluations Evaluation[] @relation("EvaluatedEvaluations")
+  
+  // 알림 관계
+  notifications      Notification[]
+
+  @@map("users")
+}
+
+enum UserType {
+  CLIENT     // 발주자
+  CONTRACTOR // 수주자
+}
+
+// 발주자 프로필
+model ClientProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  companyName String
+  industry    String
+  companySize CompanySize
+  
+  // P-E-Q 지수 (Payment-Efficiency-Quality)
+  paymentScore    Float @default(0.0) // 대금지급율 기반 점수
+  efficiencyScore Float @default(0.0) // 납기일 준수율 기반 점수
+  qualityScore    Float @default(0.0) // 프로젝트 성공율 기반 점수
+  overallPEQScore Float @default(0.0) // 종합 P-E-Q 지수
+  
+  totalProjects   Int @default(0)
+  successfulProjects Int @default(0)
+  averagePaymentDays Int @default(0) // 평균 대금지급일
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("client_profiles")
+}
+
+// 수주자 프로필
+model ContractorProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  companyName String
+  industry    String
+  companySize CompanySize
+  specialties String[] // 전문 분야 배열
+  
+  // Atlas Score (수주자 평판 점수)
+  atlasScore      Float @default(0.0) // 종합 Atlas Score
+  technicalScore  Float @default(0.0) // 기술력 점수
+  deliveryScore   Float @default(0.0) // 납기 준수 점수
+  communicationScore Float @default(0.0) // 소통 점수
+  qualityScore    Float @default(0.0) // 품질 점수
+  
+  totalProjects   Int @default(0)
+  successfulProjects Int @default(0)
+  averageDeliveryDays Int @default(0) // 평균 납기일
+  
+  portfolio       PortfolioItem[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contractor_profiles")
+}
+
+enum CompanySize {
+  STARTUP     // 스타트업 (1-10명)
+  SMALL       // 소규모 (11-50명)
+  MEDIUM      // 중규모 (51-200명)
+  LARGE       // 대규모 (201-1000명)
+  ENTERPRISE  // 대기업 (1000명 이상)
+}
+
+// 포트폴리오 아이템
+model PortfolioItem {
+  id          String   @id @default(cuid())
+  contractorId String
+  contractor   ContractorProfile @relation(fields: [contractorId], references: [id], onDelete: Cascade)
+  
+  title       String
+  description String
+  imageUrl    String?
+  projectType String
+  technologies String[] // 사용 기술 스택
+  duration    Int // 프로젝트 기간 (일)
+  budget      Int // 프로젝트 예산
+  
+  createdAt DateTime @default(now())
+
+  @@map("portfolio_items")
+}
+
+// 프로젝트 모델
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  category    String
+  budget      Int
+  duration    Int // 예상 기간 (일)
+  
+  status      ProjectStatus @default(OPEN)
+  priority    ProjectPriority @default(MEDIUM)
+  
+  // 관계
+  clientId    String
+  client      User @relation("ClientProjects", fields: [clientId], references: [id])
+  
+  contractorId String?
+  contractor   User? @relation("ContractorProjects", fields: [contractorId], references: [id])
+  
+  // 프로젝트 세부사항
+  requirements String[] // 요구사항
+  technologies String[] // 필요 기술
+  deliverables String[] // 납품물
+  
+  // 일정 및 예산
+  startDate   DateTime?
+  endDate     DateTime?
+  actualEndDate DateTime?
+  
+  // 평가
+  evaluations Evaluation[]
+  
+  // 매칭 결과
+  matchingResult MatchingResult?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("projects")
+}
+
+enum ProjectStatus {
+  OPEN        // 공개 (매칭 대기)
+  MATCHED     // 매칭됨
+  IN_PROGRESS // 진행 중
+  COMPLETED   // 완료
+  CANCELLED   // 취소됨
+}
+
+enum ProjectPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+// 평가 모델 (이중 평판 시스템)
+model Evaluation {
+  id          String   @id @default(cuid())
+  
+  // 평가 관계
+  evaluatorId String   // 평가자 (발주자 또는 수주자)
+  evaluator   User     @relation("EvaluatorEvaluations", fields: [evaluatorId], references: [id])
+  
+  evaluatedId String   // 피평가자 (발주자 또는 수주자)
+  evaluated   User     @relation("EvaluatedEvaluations", fields: [evaluatedId], references: [id])
+  
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id])
+  
+  // 평가 점수 (1-5점)
+  overallRating    Int
+  technicalRating  Int? // 기술력 (수주자만)
+  deliveryRating   Int? // 납기 준수
+  communicationRating Int? // 소통
+  qualityRating    Int? // 품질
+  paymentRating    Int? // 대금지급 (발주자만)
+  
+  // 평가 내용
+  comment     String?
+  
+  // 평가 유형
+  evaluationType EvaluationType
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([evaluatorId, evaluatedId, projectId])
+  @@map("evaluations")
+}
+
+enum EvaluationType {
+  CLIENT_TO_CONTRACTOR  // 발주자 → 수주자 평가
+  CONTRACTOR_TO_CLIENT  // 수주자 → 발주자 평가
+}
+
+// AI 매칭 결과
+model MatchingResult {
+  id          String   @id @default(cuid())
+  
+  projectId   String   @unique
+  project     Project  @relation(fields: [projectId], references: [id])
+  
+  // 매칭된 수주자들 (상위 5명)
+  contractorIds String[]
+  scores      Float[] // 각 수주자의 매칭 점수
+  
+  // 매칭 기준
+  matchingCriteria String // 매칭에 사용된 기준
+  
+  createdAt DateTime @default(now())
+
+  @@map("matching_results")
+}
+
+// 프로젝트 알림
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  
+  title     String
+  message   String
+  type      NotificationType
+  isRead    Boolean  @default(false)
+  
+  // 관련 데이터
+  projectId String?
+  evaluationId String?
+  
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
+}
+
+enum NotificationType {
+  PROJECT_MATCHED
+  PROJECT_COMPLETED
+  EVALUATION_RECEIVED
+  PAYMENT_RECEIVED
+  DEADLINE_REMINDER
+  SYSTEM_ANNOUNCEMENT
+}
