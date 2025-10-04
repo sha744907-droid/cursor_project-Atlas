@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit
 
     // 필터 조건 구성
-    const where: any = {}
+    const where: Record<string, unknown> = {}
     
     if (category) {
       where.category = category

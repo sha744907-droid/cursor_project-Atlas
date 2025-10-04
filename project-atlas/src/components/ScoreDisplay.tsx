@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Star, TrendingUp, Shield, Award } from "lucide-react"
+import { Shield, Award } from "lucide-react"
 import { getScoreGrade, getScoreColorClass } from "@/lib/utils"
 
 interface ScoreDisplayProps {

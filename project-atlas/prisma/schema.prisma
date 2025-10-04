@@ -32,6 +32,9 @@ model User {
   // 평가 관계
   givenEvaluations   Evaluation[] @relation("EvaluatorEvaluations")
   receivedEvaluations Evaluation[] @relation("EvaluatedEvaluations")
+  
+  // 알림 관계
+  notifications      Notification[]
 
   @@map("users")
 }
@@ -155,6 +158,9 @@ model Project {
   
   // 평가
   evaluations Evaluation[]
+  
+  // 매칭 결과
+  matchingResult MatchingResult?
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

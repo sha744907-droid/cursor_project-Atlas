@@ -3,12 +3,10 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { 
   TrendingUp, 
-  Users, 
   Target, 
   Star,
   Clock,
   CheckCircle,
-  AlertCircle,
   Plus,
   Eye,
   MessageSquare

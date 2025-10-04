@@ -1,8 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Star, Users, MapPin, Clock, CheckCircle, Eye } from "lucide-react"
-import { formatCurrency, getScoreGrade, getScoreColorClass } from "@/lib/utils"
+import { Star, Users, Clock, CheckCircle, Eye } from "lucide-react"
+import { formatCurrency, getScoreGrade } from "@/lib/utils"
 
 interface MatchingCardProps {
   contractor: {
